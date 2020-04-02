@@ -1,0 +1,6 @@
+main: me.noodles.tntblockdamage.Main
+version: 3.1
+name: TNTBlockDamage
+author: BGHDNetwork
+commands:
+    tnt:
