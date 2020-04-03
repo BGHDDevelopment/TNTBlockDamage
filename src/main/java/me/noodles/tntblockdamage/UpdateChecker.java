@@ -4,11 +4,11 @@ import java.io.*;
 
 public class UpdateChecker
 {
-    public Main plugin;
+    public TNTBlockDamage plugin;
     public String version;
     
     
-    public UpdateChecker(Main plugin) {
+    public UpdateChecker(TNTBlockDamage plugin) {
         this.plugin = plugin;
         this.version = this.getLatestVersion();
     }

@@ -1,0 +1,7 @@
+name: TNTBlockDamage
+version: ${project.version}
+main: me.noodles.tntblockdamage.TNTBlockDamage
+authors: [BGHDDevelopment]
+website: https://bghddevelopment.com/
+commands:
+  tnt:
