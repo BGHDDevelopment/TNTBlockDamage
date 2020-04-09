@@ -10,15 +10,15 @@ import org.bukkit.command.*;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 
-public class Main extends JavaPlugin implements Listener
+public class TNTBlockDamage extends JavaPlugin implements Listener
 {
 	
 	private UpdateChecker checker;
-	public static Main plugin;
+	public static TNTBlockDamage plugin;
 
 	
     public void onEnable() {
-    	Main.plugin = this; 	
+    	TNTBlockDamage.plugin = this;
     	final PluginDescriptionFile VarUtilType = this.getDescription();
 		this.getLogger().info("TNTBlockDamage V" + VarUtilType.getVersion() + " starting...");
 		this.saveDefaultConfig();
@@ -33,7 +33,7 @@ public class Main extends JavaPlugin implements Listener
             	getServer().getConsoleSender().sendMessage("------------------------");
             	getServer().getConsoleSender().sendMessage("TNTBlockDamage is outdated!");
             	getServer().getConsoleSender().sendMessage("Newest version: " + this.checker.getLatestVersion());
-            	getServer().getConsoleSender().sendMessage("Your version: " + Main.plugin.getDescription().getVersion());
+            	getServer().getConsoleSender().sendMessage("Your version: " + TNTBlockDamage.plugin.getDescription().getVersion());
             	getServer().getConsoleSender().sendMessage("Please Update Here: https://www.spigotmc.org/resources/20392");
                 getServer().getConsoleSender().sendMessage("------------------------");
             }
@@ -46,8 +46,8 @@ public class Main extends JavaPlugin implements Listener
     }
     
     @SuppressWarnings({ "unchecked", "rawtypes"})
-   	public static Main getPlugin() {
-           return (Main)getPlugin((Class)Main.class);
+   	public static TNTBlockDamage getPlugin() {
+           return (TNTBlockDamage)getPlugin((Class) TNTBlockDamage.class);
        }
        
 
