@@ -5,3 +5,5 @@ authors: [BGHDDevelopment]
 website: https://bghddevelopment.com/
 commands:
   tnt:
+    description: Spawn TNT where you are looking
+    usage: /<command>
