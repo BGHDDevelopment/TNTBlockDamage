@@ -1,5 +1,7 @@
 package me.noodles.tntblockdamage;
 
+import me.noodles.tntblockdamage.listeners.UpdateJoinEvent;
+import me.noodles.tntblockdamage.utilities.UpdateChecker;
 import org.bukkit.plugin.java.*;
 import org.bukkit.plugin.*;
 import org.bukkit.event.entity.*;
@@ -23,28 +25,31 @@ public class TNTBlockDamage extends JavaPlugin implements Listener
 		this.getLogger().info("TNTBlockDamage V" + VarUtilType.getVersion() + " starting...");
 		this.saveDefaultConfig();
         this.reloadConfig();
+        this.registerEvents(this, new UpdateJoinEvent(this));
         this.getServer().getPluginManager().registerEvents((Listener)this, (Plugin)this);
         this.setEnabled(true);
 		this.getLogger().info("TNTBlockDamage V" + VarUtilType.getVersion() + " started!");
-		this.getLogger().info("TNTBlockDamage V" + VarUtilType.getVersion() + " checking for updates...");
-        this.checker = new UpdateChecker(this);
-        if (this.checker.isConnected()) {
-            if (this.checker.hasUpdate()) {
-            	getServer().getConsoleSender().sendMessage("------------------------");
-            	getServer().getConsoleSender().sendMessage("TNTBlockDamage is outdated!");
-            	getServer().getConsoleSender().sendMessage("Newest version: " + this.checker.getLatestVersion());
-            	getServer().getConsoleSender().sendMessage("Your version: " + TNTBlockDamage.plugin.getDescription().getVersion());
-            	getServer().getConsoleSender().sendMessage("Please Update Here: https://www.spigotmc.org/resources/20392");
-                getServer().getConsoleSender().sendMessage("------------------------");
-            }
-            else {
-            	getServer().getConsoleSender().sendMessage("------------------------");
-            	getServer().getConsoleSender().sendMessage("TNTBlockDamage is up to date!");
-            	getServer().getConsoleSender().sendMessage("------------------------");
-            }
+
+        if (getConfig().getBoolean("CheckForUpdates.Enabled", true)) {
+            new UpdateChecker(this, 20392).getLatestVersion(remoteVersion -> {
+                getLogger().info("Checking for Updates ...");
+
+                if (getDescription().getVersion().equalsIgnoreCase(remoteVersion)) {
+                    getLogger().info("No new version available");
+                } else {
+                    getLogger().warning(String.format("Newest version: %s is out! You are running version: %s", remoteVersion, getDescription().getVersion()));
+                    getLogger().warning("Please Update Here: http://www.spigotmc.org/resources/20392");
+                }
+            });
         }
     }
-    
+
+    private void registerEvents(final JavaPlugin plugin, final Listener... listeners) {
+        for (final Listener listener : listeners) {
+            Bukkit.getServer().getPluginManager().registerEvents(listener, plugin);
+        }
+    }
+
     @SuppressWarnings({ "unchecked", "rawtypes"})
    	public static TNTBlockDamage getPlugin() {
            return (TNTBlockDamage)getPlugin((Class) TNTBlockDamage.class);
