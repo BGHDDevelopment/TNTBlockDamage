@@ -4,28 +4,30 @@ import me.noodles.tntblockdamage.commands.TntCommand;
 import me.noodles.tntblockdamage.listeners.BlockListener;
 import me.noodles.tntblockdamage.listeners.UpdateJoinEvent;
 import me.noodles.tntblockdamage.utilities.UpdateChecker;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.plugin.java.*;
-import org.bukkit.plugin.*;
-import org.bukkit.event.*;
-import org.bukkit.*;
+import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class TNTBlockDamage extends JavaPlugin {
-	
-	private UpdateChecker checker;
-	public static TNTBlockDamage plugin;
 
-	
     public void onEnable() {
-    	TNTBlockDamage.plugin = this;
-    	final PluginDescriptionFile VarUtilType = this.getDescription();
-		this.getLogger().info("TNTBlockDamage V" + VarUtilType.getVersion() + " starting...");
+        final String version = this.getDescription().getVersion();
+
+        this.getLogger().info(String.format("TNTBlockDamage v%s starting ...", version));
+
 		this.saveDefaultConfig();
         this.reloadConfig();
+
+        this.getLogger().info(String.format("TNTBlockDamage v%s loading commands ...", version));
+
         this.registerCommand("tnt", new TntCommand());
+
+        this.getLogger().info(String.format("TNTBlockDamage v%s loading events ...", version));
+
         this.registerEvents(this, new UpdateJoinEvent(this), new BlockListener());
-        this.setEnabled(true);
-		this.getLogger().info("TNTBlockDamage V" + VarUtilType.getVersion() + " started!");
+
+        this.getLogger().info(String.format("TNTBlockDamage v%s started ...", version));
 
         if (getConfig().getBoolean("CheckForUpdates.Enabled", true)) {
             new UpdateChecker(this, 20392).getLatestVersion(remoteVersion -> {
@@ -50,10 +52,5 @@ public class TNTBlockDamage extends JavaPlugin {
             Bukkit.getServer().getPluginManager().registerEvents(listener, plugin);
         }
     }
-
-    @SuppressWarnings({ "unchecked", "rawtypes"})
-   	public static TNTBlockDamage getPlugin() {
-           return (TNTBlockDamage)getPlugin((Class) TNTBlockDamage.class);
-       }
 
 }
