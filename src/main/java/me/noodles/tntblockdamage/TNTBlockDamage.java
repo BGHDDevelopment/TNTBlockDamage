@@ -1,19 +1,16 @@
 package me.noodles.tntblockdamage;
 
+import me.noodles.tntblockdamage.listeners.BlockListener;
 import me.noodles.tntblockdamage.listeners.UpdateJoinEvent;
 import me.noodles.tntblockdamage.utilities.UpdateChecker;
 import org.bukkit.plugin.java.*;
 import org.bukkit.plugin.*;
-import org.bukkit.event.entity.*;
-import org.bukkit.block.*;
-import org.bukkit.util.Vector;
 import org.bukkit.event.*;
 import org.bukkit.command.*;
 import org.bukkit.*;
 import org.bukkit.entity.*;
 
-public class TNTBlockDamage extends JavaPlugin implements Listener
-{
+public class TNTBlockDamage extends JavaPlugin {
 	
 	private UpdateChecker checker;
 	public static TNTBlockDamage plugin;
@@ -25,8 +22,7 @@ public class TNTBlockDamage extends JavaPlugin implements Listener
 		this.getLogger().info("TNTBlockDamage V" + VarUtilType.getVersion() + " starting...");
 		this.saveDefaultConfig();
         this.reloadConfig();
-        this.registerEvents(this, new UpdateJoinEvent(this));
-        this.getServer().getPluginManager().registerEvents((Listener)this, (Plugin)this);
+        this.registerEvents(this, new UpdateJoinEvent(this), new BlockListener());
         this.setEnabled(true);
 		this.getLogger().info("TNTBlockDamage V" + VarUtilType.getVersion() + " started!");
 
@@ -54,23 +50,7 @@ public class TNTBlockDamage extends JavaPlugin implements Listener
    	public static TNTBlockDamage getPlugin() {
            return (TNTBlockDamage)getPlugin((Class) TNTBlockDamage.class);
        }
-       
 
-    @EventHandler
-    public void onEntityExplode(final EntityExplodeEvent event) {
-        for (final Block b : event.blockList()) {
-            if (b.getType() != Material.TNT) {
-                final float x = -2.0f + (float)(Math.random() * 5.0);
-                final float y = -3.0f + (float)(Math.random() * 7.0);
-                final float z = -2.5f + (float)(Math.random() * 6.0);
-				final FallingBlock fallingBlock = b.getWorld().spawnFallingBlock(b.getLocation(), b.getType(), b.getData());
-                fallingBlock.setDropItem(false);
-                fallingBlock.setVelocity(new Vector(x, y, z));
-                b.setType(Material.AIR);
-            }
-        }
-    }
-    
     public boolean onCommand(final CommandSender sender, final Command cmd, final String CommandLabel, final String[] args) {
     	if (!(sender instanceof Player)){
             Bukkit.getServer().getLogger().info("Only players can do this!");
