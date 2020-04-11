@@ -5,4 +5,11 @@
 Update:
   Enabled: true
 #tntblockdamage.update
-#Enables if there is a message on-join when the plugin is outdated. 
+#Enables if there is a message on-join when the plugin is outdated.
+#=======================================================
+CheckForUpdates:
+  Enabled: true
+#Enables a message in console if the plugin is outdated.
+#=======================================================
+#Plugin Commands:
+# /tnt - tntblockdamage.use
