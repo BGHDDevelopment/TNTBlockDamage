@@ -1,4 +1,4 @@
-package me.noodles.tntblockdamage.listeners;
+package com.bghddevelopment.tnt.listeners;
 
 import org.bukkit.Material;
 import org.bukkit.block.Block;

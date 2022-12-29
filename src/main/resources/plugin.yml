@@ -1,9 +1,5 @@
 name: TNTBlockDamage
-version: ${project.version}
-main: me.noodles.tntblockdamage.TNTBlockDamage
-authors: [BGHDDevelopment]
+version: 3.3
+main: com.bghddevelopment.tnt.TNTBlockDamage
+author: BGHDDevelopmentLLC
 website: https://bghddevelopment.com/
-commands:
-  tnt:
-    description: Launch TNT where you are looking
-    usage: /<command>
